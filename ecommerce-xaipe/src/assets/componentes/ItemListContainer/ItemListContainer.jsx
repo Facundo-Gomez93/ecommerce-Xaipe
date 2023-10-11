@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
-import { useParams } from "react-router-dom"
-import { mFetch } from "../Mook/moockFetch"
+import {collection, getFirestore, query, where, getDocs} from "firebase/firestore"
 import ItemList from "../ItemList/ItemList"
+import { useParams } from "react-router-dom"
 
 
 const ItemListContainer = () => {
@@ -9,20 +9,25 @@ const ItemListContainer = () => {
   const [products, setProduct ] = useState([])
   const [loading, setLoading] = useState(true)
   const {cid} = useParams()
-  console.log(cid)
+
 
   useEffect( () => {
     if (cid) {
-      mFetch()
-      .then(respuesta => setProduct(respuesta.filter(product => cid == product.category)))
-      .catch(err => console.log(err))
+      const db = getFirestore()
+      const queryCollection = collection (db, 'products')
+      const queryFilter = query(queryCollection, where('category', '==', cid))
+      getDocs(queryFilter)
+      .then(resp=> setProduct(resp.docs.map(prod=> ( { id: prod.id, ...prod.data()}))))
+      .catch(err=> console.log(err))
       .finally(()=> setLoading(false))
     } else {
-      
-      mFetch()
-      .then(respuesta => setProduct(respuesta))
+      const db = getFirestore()
+      const queryCollection = collection (db, 'products')
+      getDocs(queryCollection) 
+      .then(resp=> setProduct(resp.docs.map(prod => ( { id: prod.id, ...prod.data()}))))
       .catch(err => console.log(err))
       .finally(()=> setLoading(false))
+
     }
   }, [cid])
 

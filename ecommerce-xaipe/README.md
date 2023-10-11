@@ -1,8 +1,11 @@
-# React + Vite
+Deploy :
+https://65262ef05f6eb2092c04fe06--glistening-platypus-389968.netlify.app/
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+librería externas 
+bootstrap        | 5.3.1 | Sirve para dar estilos app
+react-bootstrap  | 2.8.0 | Sirve para dar estilos app configurado directamente para React
+react-router-dom | 6.16.0| Sirve para el enrutado de la app
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+cd ecommerce-xaipe
+npm i
+npm run dev local
